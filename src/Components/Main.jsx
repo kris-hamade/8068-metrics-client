@@ -13,7 +13,7 @@ Uncomment the below line when working in a development environment
 where you are running the api server locally and looking
 for faster updates to come through for testing purposes 
 */
-let wsLocation = "wss://ourfrc.com/hook/"
+let wsLocation = "wss://ourfrc.com/api/"
 
 wsLocation += window.location.pathname.split('/').slice(-1)[0];
 ws = new WebSocket(wsLocation);
