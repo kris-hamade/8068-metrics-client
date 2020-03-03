@@ -14,6 +14,6 @@ RUN npm install
 #Bundle app source
 COPY . .
 
-RUN npm start
+RUN npm run build
 
 EXPOSE 5223
