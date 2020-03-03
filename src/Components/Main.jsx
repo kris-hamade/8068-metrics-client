@@ -4,16 +4,16 @@ import Box from '@material-ui/core/Box';
 import moment from 'moment'
 
 let ws;
-/*let wsLocation = parseQuery(window.location.search).dev !== undefined
+let wsLocation = parseQuery(window.location.search).dev !== undefined
     ? `ws://localhost:8180/`
-    : 'wss://ourfrc.com/metrics/client/'
-*/
+    : 'wss://ourfrc.com/hook/'
+
 /* Purpose of the following let wsLocation line
 Uncomment the below line when working in a development environment 
 where you are running the api server locally and looking
 for faster updates to come through for testing purposes 
 */
-let wsLocation = "wss://ourfrc.com/metrics/client/"
+//let wsLocation = "ws://localhost:8180/"
 
 wsLocation += window.location.pathname.split('/').slice(-1)[0];
 ws = new WebSocket(wsLocation);
