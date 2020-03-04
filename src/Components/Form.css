@@ -1,7 +1,9 @@
 #eventsLabel {
-    width: 40vw;
+    min-width: 15vw;
+    width: auto;
 }
 
 #eventsInputLabel {
-    width: 40vw;
+    min-width: 15vw;
+    width: auto;
 }
