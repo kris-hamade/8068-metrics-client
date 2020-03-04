@@ -10,13 +10,15 @@ import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
+        margin: theme.spacing(1),
+        minWidth: 120,
     },
     selectEmpty: {
-      marginTop: theme.spacing(2),
+        marginTop: theme.spacing(2),
     },
-  }));
+}));
+
+var events = []
 
 class Form extends React.Component {
 
@@ -24,28 +26,38 @@ class Form extends React.Component {
         super(props);
 
         this.state = {
-            selectedEvent: []
+            events: []
         };
     }
-    eventData() {
-        const { payload } = this.props
-        console.log(payload)
+    componentDidUpdate() {
+
+
     }
 
+    renderEventDropdown() {
+        const { payload } = this.props
+        //console.log(payload.events)
+
+        if (payload.events != undefined) {
+                return payload.events.map((event, index) => {
+                    return (
+                        <MenuItem value={event.tbaEventKey}>{event.tbaEventName}</MenuItem>
+                    )
+                })
+        }
+    }
     render() {
-        
-        
+
+        console.log(this.renderEventDropdown())
         return (
             <div>
-                <FormControl className={useStyles.formControl}>
-                    <InputLabel id="eventsLabel">Events</InputLabel>
+                <FormControl id="eventsLabel" className={useStyles.formControl}>
+                    <InputLabel id="eventsInputLabel">Events</InputLabel>
                     <Select
-                    labelId="deventsLabel"
-                    id="demo-simple-select"
+                        labelId="eventsLabel"
+                        id="demo-simple-select"
                     >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                        {this.renderEventDropdown()}
                     </Select>
                 </FormControl>
             </div>

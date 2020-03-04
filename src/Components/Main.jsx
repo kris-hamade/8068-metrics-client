@@ -5,16 +5,16 @@ import Box from '@material-ui/core/Box';
 import moment from 'moment'
 
 let ws;
-/*let wsLocation = parseQuery(window.location.search).dev !== undefined
+let wsLocation = parseQuery(window.location.search).dev !== undefined
     ? `ws://localhost:8180/`
-    : 'wss://ourfrc.com/hook/'
-*/
+    : 'wss://ourfrc.com/api/'
+
 /* Purpose of the following let wsLocation line
 Uncomment the below line when working in a development environment 
 where you are running the api server locally and looking
 for faster updates to come through for testing purposes 
 */
-let wsLocation = "wss://ourfrc.com/api/"
+//let wsLocation = "ws://localhost:8180/"
 
 wsLocation += window.location.pathname.split('/').slice(-1)[0];
 ws = new WebSocket(wsLocation);
@@ -34,7 +34,6 @@ class Main extends React.Component {
         super(props);
 
         this.state = {
-            events: []
         };
     }
 
@@ -53,24 +52,21 @@ class Main extends React.Component {
             }));
         };
         ws.onmessage = (e) => {
-            const payload = JSON.parse(e.data);
+            const payload = JSON.parse(e.data)
             console.log(payload)
-            if (debug) console.log(payload);
+            if (debug) console.log(payload)
             // update is sent after each job completes
             if (payload.action === 'update') {
-
+                for (let entry in payload.data){
+                    this.setState({ [entry]: payload.data[entry] })
+                }
             }
             // fullUpdate is sent once after connection. Contains entire state.
             if (payload.action === 'fullUpdate') {
-
+                payload.data.forEach(entry => { this.setState({ [entry.name]: entry.value }) })
             }
             if (payload.action === 'refresh') {
                 window.location.reload()
-                console.log(payload)
-
-            }
-            if (payload.action === 'setDashboard') {
-                window.location.href = `/${payload.data}.html${window.location.search}`
                 console.log(payload)
 
             }
