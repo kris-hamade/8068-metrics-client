@@ -1,4 +1,5 @@
 import React from 'react'
+import Form from './Form.jsx'
 import './Main.css'
 import Box from '@material-ui/core/Box';
 import moment from 'moment'
@@ -33,6 +34,7 @@ class Main extends React.Component {
         super(props);
 
         this.state = {
+            events: []
         };
     }
 
@@ -86,7 +88,7 @@ class Main extends React.Component {
     render() {
         return (
             <Box>
-                <p>Test</p>
+                <Form payload={this.state}/>
             </Box>
         )
     }
@@ -98,4 +100,4 @@ class Main extends React.Component {
 
 
 
-export default Main;
+export default Main
