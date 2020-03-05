@@ -1,8 +1,27 @@
 import React from 'react'
-import Form from './Form.jsx'
 import './Main.css'
 import Box from '@material-ui/core/Box';
-import moment from 'moment'
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const useStyles = makeStyles(theme => ({
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+}));
+
+
+
+var selectedEvent
 
 let ws;
 let wsLocation = parseQuery(window.location.search).dev !== undefined
@@ -39,7 +58,6 @@ class Main extends React.Component {
 
 
     // single websocket instance for the own application and constantly trying to reconnect.
-
     componentDidMount() {
 
         //this.connect();
@@ -78,19 +96,73 @@ class Main extends React.Component {
         ws.onclose = function () {
             if (debug) console.log('session closed');
         };
+
+
+    }
+    handleChange(event){
+        selectedEvent = event.target.value
+        console.log(selectedEvent)
+        
+    }
+    handleClick(event){
+        console.log(selectedEvent)
+        //currentComponent.setState({ eventValue: selectedEvent})
     }
 
     timeout = 250; // Initial timeout duration as a class variable
     render() {
         return (
             <Box>
-                <Form payload={this.state}/>
+                <Form handleClick={this.handleClick.bind(this)} handleChange={this.handleChange.bind(this)} payload={this.state}/>
             </Box>
         )
     }
 
 }
 
+class Form extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            eventValue: []
+        };
+    }
+
+    renderEventDropdown() {
+        const { payload } = this.props
+        if (payload.events != undefined) {
+            return payload.events.map((event, index) => {
+                return (
+                    <MenuItem key={index} value={event.tbaEventKey}>{event.tbaEventName}</MenuItem>
+                )
+            })
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <FormControl id="eventsLabel" className={useStyles.formControl}>
+                    <InputLabel id="eventsInputLabel">Events</InputLabel>
+                    <Select
+                        labelId="eventsLabel"
+                        id="eventSelect"
+                        autoWidth
+                        defaultValue=''
+                        onChange={this.props.handleChange}
+                    >
+                        {this.renderEventDropdown()}
+                        
+                    </Select>
+                    <Button onClick={this.props.handleClick} variant="contained">Default</Button>
+                    <FormHelperText>Select District Event</FormHelperText>
+                </FormControl>
+            </div>
+        )
+    }
+}
 
 
 

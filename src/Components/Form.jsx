@@ -1,6 +1,6 @@
 import React from 'react'
 import './Form.css'
-import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -18,51 +18,8 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-var events = []
+var selectedEvent
+var currentComponent
 
-class Form extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            events: []
-        };
-    }
-    componentDidUpdate() {
-
-
-    }
-
-    renderEventDropdown() {
-        const { payload } = this.props
-        //console.log(payload.events)
-
-        if (payload.events != undefined) {
-                return payload.events.map((event, index) => {
-                    return (
-                        <MenuItem value={event.tbaEventKey}>{event.tbaEventName}</MenuItem>
-                    )
-                })
-        }
-    }
-    render() {
-
-        console.log(this.renderEventDropdown())
-        return (
-            <div>
-                <FormControl id="eventsLabel" className={useStyles.formControl}>
-                    <InputLabel id="eventsInputLabel">Events</InputLabel>
-                    <Select
-                        labelId="eventsLabel"
-                        id="demo-simple-select"
-                    >
-                        {this.renderEventDropdown()}
-                    </Select>
-                </FormControl>
-            </div>
-        )
-    }
-}
 
 export default Form
