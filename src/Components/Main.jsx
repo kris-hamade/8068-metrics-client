@@ -92,6 +92,8 @@ class Main extends React.Component {
                 //app.session = payload.data;
             }
         }
+
+
         // If socket is closed, retry connection every 5 seconds
         ws.onclose = function () {
             if (debug) console.log('session closed');
@@ -99,13 +101,22 @@ class Main extends React.Component {
 
 
     }
+    dataSend() {
+        
+        if (selectedEvent !== undefined){
+            ws.send((JSON.stringify({
+                action: 'getMatchData',
+                data: selectedEvent
+            })))
+        }
+    }
     handleChange(event){
         selectedEvent = event.target.value
         console.log(selectedEvent)
         
     }
     handleClick(event){
-        console.log(selectedEvent)
+        this.dataSend()
         //currentComponent.setState({ eventValue: selectedEvent})
     }
 
@@ -132,7 +143,7 @@ class Form extends React.Component {
 
     renderEventDropdown() {
         const { payload } = this.props
-        if (payload.events != undefined) {
+        if (payload.events !== undefined) {
             return payload.events.map((event, index) => {
                 return (
                     <MenuItem key={index} value={event.tbaEventKey}>{event.tbaEventName}</MenuItem>
