@@ -228,19 +228,92 @@ class MatchDataTable extends React.Component {
 
     renderTableData() {
         const { payload } = this.props
-        
 
-         if (payload.matchData !== undefined) {
+
+        if (payload.matchData !== undefined) {
             payload.matchData.forEach((data, index) => {
                 matchDataForTable.push(data)
             })
         }
         return matchDataForTable.map((data, index) => {
 
-        return (
+            return (
                 <TableRow key={index}>
                     <TableCell>{data.matchKey}</TableCell>
                     <TableCell>{data.matchCompLevel}</TableCell>
+                    <TableCell>{data.redMatchScore}</TableCell>
+                    <TableCell>{data.redMatchTeams}</TableCell>
+                    <TableCell>{data.blueMatchScore}</TableCell>
+                    <TableCell>{data.blueMatchTeams}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.adjustPoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.autoCellPoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.autoCellsBottom}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.autoCellsInner}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.autoCellsOuter}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.autoInitLinePoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.autoPoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.controlPanelPoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.endgamePoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.endgameRobot1}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.endgameRobot2}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.endgameRobot3}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.endgameRungIsLevel}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.foulCount}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.foulPoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.initLineRobot1}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.initLineRobot2}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.initLineRobot3}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.rp}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.shieldEnergizedRankingPoint}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.shieldOperationalRankingPoint}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.stage1Activated}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.stage2Activated}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.stage3Activated}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.stage3TargetColor}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.tba_numRobotsHanging}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.tba_shieldEnergizedRankingPointFromFoul}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.techFoulCount}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.teleopCellPoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.teleopCellsBottom}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.teleopCellsInner}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.teleopCellsOuter}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.teleopPoints}</TableCell>
+                    <TableCell>{data.redMatchScoreBreakdown.totalPoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.adjustPoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.autoCellPoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.autoCellsBottom}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.autoCellsInner}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.autoCellsOuter}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.autoInitLinePoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.autoPoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.controlPanelPoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.endgamePoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.endgameRobot1}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.endgameRobot2}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.endgameRobot3}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.endgameRungIsLevel}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.foulCount}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.foulPoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.initLineRobot1}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.initLineRobot2}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.initLineRobot3}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.rp}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.shieldEnergizedRankingPoint}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.shieldOperationalRankingPoint}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.stage1Activated}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.stage2Activated}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.stage3Activated}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.stage3TargetColor}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.tba_numRobotsHanging}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.tba_shieldEnergizedRankingPointFromFoul}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.techFoulCount}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.teleopCellPoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.teleopCellsBottom}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.teleopCellsInner}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.teleopCellsOuter}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.teleopPoints}</TableCell>
+                    <TableCell>{data.blueMatchScoreBreakdown.totalPoints}</TableCell>
+
                 </TableRow>
             )
         })
