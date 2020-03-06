@@ -8,6 +8,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -16,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
+    },
+    table: {
+        minWidth: 650,
     },
 }));
 
@@ -75,7 +85,7 @@ class Main extends React.Component {
             if (debug) console.log(payload)
             // update is sent after each job completes
             if (payload.action === 'update') {
-                for (let entry in payload.data){
+                for (let entry in payload.data) {
                     this.setState({ [entry]: payload.data[entry] })
                 }
             }
@@ -102,20 +112,20 @@ class Main extends React.Component {
 
     }
     dataSend() {
-        
-        if (selectedEvent !== undefined){
+
+        if (selectedEvent !== undefined) {
             ws.send((JSON.stringify({
                 action: 'getMatchData',
                 data: selectedEvent
             })))
         }
     }
-    handleChange(event){
+    handleChange(event) {
         selectedEvent = event.target.value
         console.log(selectedEvent)
-        
+
     }
-    handleClick(event){
+    handleClick(event) {
         this.dataSend()
         //currentComponent.setState({ eventValue: selectedEvent})
     }
@@ -124,7 +134,8 @@ class Main extends React.Component {
     render() {
         return (
             <Box>
-                <Form handleClick={this.handleClick.bind(this)} handleChange={this.handleChange.bind(this)} payload={this.state}/>
+                <Form handleClick={this.handleClick.bind(this)} handleChange={this.handleChange.bind(this)} payload={this.state} />
+                <MatchDataTable payload={this.state} />
             </Box>
         )
     }
@@ -165,7 +176,7 @@ class Form extends React.Component {
                         onChange={this.props.handleChange}
                     >
                         {this.renderEventDropdown()}
-                        
+
                     </Select>
                     <Button onClick={this.props.handleClick} variant="contained">Default</Button>
                     <FormHelperText>Select District Event</FormHelperText>
@@ -175,7 +186,43 @@ class Form extends React.Component {
     }
 }
 
+class MatchDataTable extends React.Component {
 
+    renderTableHeader() {
+        var headerData = []
+        const { payload } = this.props
+        //console.log(payload.matchData)
+        if (payload.matchData !== undefined){
+        payload.matchData.map((key, index) => {
+            //console.log(key + " " + index)
+            for (let item in key)
+            {
+                //console.log(Object.key(key[item].redMatchScoreBreakdown))
+            }
+        })
+    }
+    }
+
+    renderTableData() {
+
+    }
+    render() {
+        return (
+            <TableContainer component={Paper}>
+                <Table className={useStyles.table} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            {this.renderTableHeader()}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        );
+    }
+}
 
 
 
