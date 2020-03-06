@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 
 var selectedEvent
+var eventHeader = []
 
 let ws;
 let wsLocation = parseQuery(window.location.search).dev !== undefined
@@ -189,18 +190,39 @@ class Form extends React.Component {
 class MatchDataTable extends React.Component {
 
     renderTableHeader() {
-        var headerData = []
+        let eventTopLevelHeader = []
         const { payload } = this.props
-        //console.log(payload.matchData)
-        if (payload.matchData !== undefined){
-        payload.matchData.map((key, index) => {
-            //console.log(key + " " + index)
-            for (let item in key)
-            {
-                //console.log(Object.key(key[item].redMatchScoreBreakdown))
-            }
-        })
-    }
+        if (payload.matchData !== undefined) {
+            payload.matchData.forEach((key, index) => {
+                //console.log(index)
+                if (index === 0) {
+                    let eventMatchKeyPreFilter = Object.keys(key)
+                    function removeUnwantedHeaderRed(headers) {
+                        return headers !== "redMatchScoreBreakdown"
+                    }
+                    function removeUnwantedHeaderBlue(headers) {
+                        return headers !== "blueMatchScoreBreakdown"
+                    }
+                    let eventMatchKeyPreFilterRedRemoved = eventMatchKeyPreFilter.filter(removeUnwantedHeaderRed)
+                    eventTopLevelHeader = eventMatchKeyPreFilterRedRemoved.filter(removeUnwantedHeaderBlue)
+                    console.log(eventTopLevelHeader)
+
+                    Object(eventTopLevelHeader).forEach((item, key) => {
+                        if (eventHeader.includes(item) === false) eventHeader.push(item)
+                    })
+                    Object.keys(key.redMatchScoreBreakdown).forEach((item, key) => {
+                        let redScoringItem = "red" + item.replace(/^\w/, c => c.toUpperCase())
+                        if (eventHeader.includes(redScoringItem) === false) eventHeader.push(redScoringItem)
+                    })
+                    Object.keys(key.blueMatchScoreBreakdown).forEach((item, key) => {
+                        let blueScoringItem = "blue" + item.replace(/^\w/, c => c.toUpperCase())
+                        if (eventHeader.includes(blueScoringItem) === false) eventHeader.push(blueScoringItem)
+                    })
+                }
+                
+            })
+
+        }
     }
 
     renderTableData() {
@@ -213,6 +235,7 @@ class MatchDataTable extends React.Component {
                     <TableHead>
                         <TableRow>
                             {this.renderTableHeader()}
+                            {console.log(eventHeader)}
                         </TableRow>
                     </TableHead>
                     <TableBody>
