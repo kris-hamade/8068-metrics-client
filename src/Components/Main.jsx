@@ -33,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 var selectedEvent
 var eventHeader = []
+var matchDataForTable = []
 
 let ws;
 let wsLocation = parseQuery(window.location.search).dev !== undefined
@@ -177,7 +178,6 @@ class Form extends React.Component {
                         onChange={this.props.handleChange}
                     >
                         {this.renderEventDropdown()}
-
                     </Select>
                     <Button onClick={this.props.handleClick} variant="contained">Default</Button>
                     <FormHelperText>Select District Event</FormHelperText>
@@ -194,7 +194,6 @@ class MatchDataTable extends React.Component {
         const { payload } = this.props
         if (payload.matchData !== undefined) {
             payload.matchData.forEach((key, index) => {
-                //console.log(index)
                 if (index === 0) {
                     let eventMatchKeyPreFilter = Object.keys(key)
                     function removeUnwantedHeaderRed(headers) {
@@ -205,7 +204,6 @@ class MatchDataTable extends React.Component {
                     }
                     let eventMatchKeyPreFilterRedRemoved = eventMatchKeyPreFilter.filter(removeUnwantedHeaderRed)
                     eventTopLevelHeader = eventMatchKeyPreFilterRedRemoved.filter(removeUnwantedHeaderBlue)
-                    console.log(eventTopLevelHeader)
 
                     Object(eventTopLevelHeader).forEach((item, key) => {
                         if (eventHeader.includes(item) === false) eventHeader.push(item)
@@ -219,15 +217,37 @@ class MatchDataTable extends React.Component {
                         if (eventHeader.includes(blueScoringItem) === false) eventHeader.push(blueScoringItem)
                     })
                 }
-                
+
             })
 
         }
+        return eventHeader.map((key, index) => {
+            return <TableCell key={index}>{key}</TableCell>
+        })
     }
 
     renderTableData() {
+        const { payload } = this.props
+        
+
+         if (payload.matchData !== undefined) {
+            payload.matchData.forEach((data, index) => {
+                matchDataForTable.push(data)
+            })
+        }
+        return matchDataForTable.map((data, index) => {
+
+        return (
+                <TableRow key={index}>
+                    <TableCell>{data.matchKey}</TableCell>
+                    <TableCell>{data.matchCompLevel}</TableCell>
+                </TableRow>
+            )
+        })
 
     }
+
+
     render() {
         return (
             <TableContainer component={Paper}>
@@ -235,11 +255,10 @@ class MatchDataTable extends React.Component {
                     <TableHead>
                         <TableRow>
                             {this.renderTableHeader()}
-                            {console.log(eventHeader)}
                         </TableRow>
                     </TableHead>
                     <TableBody>
-
+                        {this.renderTableData()}
                     </TableBody>
                 </Table>
             </TableContainer>
