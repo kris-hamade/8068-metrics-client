@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 var selectedEvent
 var eventHeader = []
-var matchDataForTable = []
+
 
 let ws;
 let wsLocation = parseQuery(window.location.search).dev !== undefined
@@ -228,7 +228,7 @@ class MatchDataTable extends React.Component {
 
     renderTableData() {
         const { payload } = this.props
-
+        var matchDataForTable = []
 
         if (payload.matchData !== undefined) {
             payload.matchData.forEach((data, index) => {
