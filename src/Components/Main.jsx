@@ -179,7 +179,7 @@ class Form extends React.Component {
                     >
                         {this.renderEventDropdown()}
                     </Select>
-                    <Button onClick={this.props.handleClick} variant="contained">Default</Button>
+                    <Button onClick={this.props.handleClick} variant="contained">Get Match Data</Button>
                     <FormHelperText>Select District Event</FormHelperText>
                 </FormControl>
             </div>
